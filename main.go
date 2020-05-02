@@ -54,7 +54,7 @@ func main() {
 
 	// The request payload based on https://discordapp.com/developers/docs/resources/webhook
 	payload := object{
-		"avatar_url": fmt.Sprintf("https://travis-ci.org/images/logos/TravisCI-Mascot-%d.png", rand.Intn(3)+1),
+		"avatar_url": fmt.Sprintf("https://travis-ci.org/images/logos/%s-%d.png", ternary(rand.Float32() > 0.5, "TravisCI-Mascot", "Tessa"), rand.Intn(3)+1),
 		"embeds": []object{
 			{
 				"title": *message,
@@ -94,6 +94,7 @@ func main() {
 			},
 		},
 	}
+	fmt.Println(payload["avatar_url"])
 	pl, err := json.Marshal(payload)
 	check(err)
 	resp, err := http.Post(*hookUrl, "application/json", bytes.NewBuffer(pl))
