@@ -94,7 +94,6 @@ func main() {
 			},
 		},
 	}
-	fmt.Println(payload["avatar_url"])
 	pl, err := json.Marshal(payload)
 	check(err)
 	resp, err := http.Post(*hookUrl, "application/json", bytes.NewBuffer(pl))
